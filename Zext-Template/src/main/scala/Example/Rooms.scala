@@ -56,7 +56,6 @@ object DyingRoom extends Room {
 
 object main extends App {
 
-
   Zext.Parser.StartInterpreter(flavorBlast, "Example")
 
 }
