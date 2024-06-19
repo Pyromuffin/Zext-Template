@@ -28,14 +28,14 @@ object DyingRoom extends Room {
   override val name: String = "Dying Room"
   override val description: StringExpression = "Pots of dye are hapahazardly strewn throughout the room."
 
-  val clothes_rack = new Supporter {
+  val clothes_rack = new Supporter("Clothes Rack") {
+
 
     this is fixed
     this aka "rack"
 
     automaticallyListContents = false
 
-    override val name: String = "Clothes Rack"
 
     val shirt = ~"Solidified dye in the shape of a tank top"
 
@@ -47,7 +47,7 @@ object DyingRoom extends Room {
      }"
 
 
-    report(taking, shirt, this had shirt) Say "Trying not to disturb the pots, you carefully unclip the shirt from the line"
+    report(taking, shirt, this has shirt) Say "Trying not to disturb the pots, you carefully unclip the shirt from the line"
   }
 
 }

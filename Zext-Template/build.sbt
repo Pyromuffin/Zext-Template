@@ -17,6 +17,6 @@ lazy val root = (project in file("."))
 
 
     autoCompilerPlugins := true,
-    libraryDependencies += "com.pyromuffin" %% "zext" % "0.1.0",
+    libraryDependencies += "com.pyromuffin" %% "zext" % "0.1.3",
     addCompilerPlugin("com.pyromuffin" %% "zobjectifier" % "1.0.6"),
   )

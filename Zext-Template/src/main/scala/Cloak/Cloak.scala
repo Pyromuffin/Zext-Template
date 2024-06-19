@@ -1,10 +1,8 @@
 package Cloak
 
+import Cloak.guy.cloak
 import Zext.*
 import Zext.exports.*
-import Zext.StartingRoom
-
-import scala.language.postfixOps
 
 /*
   There are just three rooms and three objects.
@@ -21,26 +19,21 @@ import scala.language.postfixOps
  */
 
 
-def str(expr : => String): StringExpression = {
-  StringExpression(expr)
-}
-
 object guy extends Player {
 
   val cloak = ~"A black velvet cloak. It's strangely light-absorbent"
 
+  val potato = ~"delicious"
 
   override val name = "Guy"
   override val description = str {
 
-    val clothes = if this.contents.contains(cloak)
+    val clothes = if this contains cloak
       then "You're swaddled in a comfy cloak"
       else "It's a bit chilly. Tiny goose ridges adorn your bare arms."
 
     "Unassuming, but you already assumed that." + clothes
   }
-
-
 
 }
 
@@ -50,7 +43,10 @@ object Foyer extends Room with StartingRoom {
   override val name: String = "Opera House Foyer"
   override val description: StringExpression = "The unremarkable beginning to an otherwise grandiose adventure. There are doors to the east, south, and west"
 
+  instead(going, east, here) Say "On further examination, the door heading east is merely pretending."
+
   Connect(south, Bar)
+  Connect(west, Cloakroom)
 }
 
 object Bar extends Room {
@@ -59,6 +55,35 @@ object Bar extends Room {
   override val description = "It's pitch dark. You are likely to be eaten by a grue."
 
 
+}
+
+
+object Cloakroom extends Room {
+
+  override val name: String = "Cloakroom"
+  override val description = "A variety of scarves, mantles, and sashes adorn the walls."
+
+  object not_yours extends Property
+
+  val scarves = ~"An array of zebra patterned tactical scarves" is scenery is not_yours
+  val mantles = ~"How did they get all these fireplaces in here?" is scenery is not_yours
+  val sashes = ~"Second place winner in the number of sashes competition" is scenery is not_yours
+
+  instead(taking, not_yours) Say "It would be uncouth to take something that is not yours"
+
+  val hook = new Supporter("hook") {
+
+    this is fixed
+
+    override val description = str {
+      if this contains cloak then
+        "Your cloak hangs dutifully on bifurcate prongs"
+      else
+        "It longs for the burden of an unspecified garment"
+    }
+  }
+
+  report(putting, cloak -> hook) Say "You slip the cloak off your shoulders and drape it on the eager tines."
 }
 
 
