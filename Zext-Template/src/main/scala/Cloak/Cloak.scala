@@ -23,8 +23,6 @@ object guy extends Player {
 
   val cloak = ~"A black velvet cloak. It's strangely light-absorbent"
 
-  val potato = ~"delicious"
-
   override val name = "Guy"
   override val description = str {
 
@@ -41,7 +39,8 @@ object guy extends Player {
 object Foyer extends Room with StartingRoom {
 
   override val name: String = "Opera House Foyer"
-  override val description: StringExpression = "The unremarkable beginning to an otherwise grandiose adventure. There are doors to the east, south, and west"
+  override val description: StringExpression = once("The floorboards creak underfoot as you enter the room. A shimmer of dust wafts from the half-lit rafters.") +
+    "The unremarkable beginning to an otherwise grandiose adventure. There are doors to the east, south, and west"
 
   instead(going, east, here) Say "On further examination, the door heading east is merely pretending."
 
@@ -54,7 +53,6 @@ object Bar extends Room {
   override val name: String = "Bar"
   override val description = "It's pitch dark. You are likely to be eaten by a grue."
 
-
 }
 
 
@@ -65,9 +63,9 @@ object Cloakroom extends Room {
 
   object not_yours extends Property
 
-  val scarves = ~"An array of zebra patterned tactical scarves" is scenery is not_yours
-  val mantles = ~"How did they get all these fireplaces in here?" is scenery is not_yours
-  val sashes = ~"Second place winner in the number of sashes competition" is scenery is not_yours
+  val scarves = ~"An array of zebra patterned tactical scarves" is scenery and not_yours
+  val mantles = ~"How did they get all these fireplaces in here?" is scenery and not_yours
+  val sashes = ~"Second place winner in the number of sashes competition" is scenery and not_yours
 
   instead(taking, not_yours) Say "It would be uncouth to take something that is not yours"
 
